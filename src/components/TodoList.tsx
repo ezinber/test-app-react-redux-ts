@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { useActions } from '../hooks/useActions';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 
-const UserList: React.FC = () => {
-  const { users, loading, error } = useTypedSelector(state => state.user);
-  const { fetchUsers } = useActions();
+const TodoList: React.FC = () => {
+  const { todos, loading, error, page, limit } = useTypedSelector(state => state.todo);
+  const { fetchTodos } = useActions();
 
   useEffect(() => {
-    fetchUsers();
+    fetchTodos(page, limit);
   }, [])
 
   if (loading) {
@@ -20,10 +20,10 @@ const UserList: React.FC = () => {
 
   return (
     <div>
-      {users.map((user) =>
-        <div key={user.id}>{user.name}</div>)}
+      {todos.map((todo) =>
+        <div key={todo.id}>{todo.id} - {todo.title}</div>)}
     </div>
   )
 };
 
-export default UserList;
+export default TodoList;
